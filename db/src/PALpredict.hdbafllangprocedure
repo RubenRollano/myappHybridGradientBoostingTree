@@ -1,0 +1,22 @@
+{ 
+  "area" : "AFLPAL", 
+  "function" : "GBDTPREDICT_ANY", 
+  "parameters" : [ 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTDataForecast", 
+      "direction" : "IN" 
+    }, 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTModel", 
+      "direction" : "IN" 
+    }, 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTParamsForecast", 
+      "direction" : "IN" 
+    },
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTForecast", 
+      "direction" : "OUT" 
+    }
+  ]
+}

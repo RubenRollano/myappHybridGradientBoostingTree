@@ -1,0 +1,27 @@
+PROCEDURE "myappHybridGradientBoostingTree.db::train" (IN ITER_NUM INTEGER)
+--ITER_NUM: Total iteration number, which is equivalent to the number of trees in the final model. Defaul 10
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   AS
+BEGIN
+	upsert "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" values ('ITER_NUM', :ITER_NUM, null, null) where "PARAM_NAME" = 'ITER_NUM';
+	
+	--Example of posible parameters
+	INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('LEARNING_RATE',  NULL, 0.5,  NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('MIN_SPLIT_LOSS', NULL, 0.0,  NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('FOLD_NUM',       5,    NULL, NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('ITER_NUM',       4,    NULL, NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('CV_METRIC',      NULL, NULL, 'ERROR_RATE');
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('REF_METRIC',     NULL, NULL, 'AUC');
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('MAX_TREE_DEPTH', 6,    NULL, NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('RANGE_ITER_NUM', NULL, NULL, '[4,3,10]');
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('RANGE_LEARNING_RATE',  NULL, NULL, '[0.1,3,1.0]');
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsTrain" VALUES('RANGE_MIN_SPLIT_LOSS', NULL, NULL, '[0.1,3,1.0]');
+
+	delete from "myappHybridGradientBoostingTree.db::PAL.Model";
+	pi1 = select "id", "close" as "value" from "myappHybridGradientBoostingTree.db::tables.StockPrices";
+	pi2 = select * from "myappHybridGradientBoostingTree.db::PAL.ParamsTrain";
+	call "myappHybridGradientBoostingTree.db::PALtrain" (:pi1, :pi2, :pe3, :pe4, :pe5, :pe6, :pe7);                              
+	insert into "myappHybridGradientBoostingTree.db::PAL.Model" select * from :pe3;
+END

@@ -1,0 +1,19 @@
+PROCEDURE "myappHybridGradientBoostingTree.db::predict" (IN Hello INTEGER)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   AS
+BEGIN
+	upsert "myappHybridGradientBoostingTree.db::PAL.ParamsForecast" values ('Hello', :Hello, null, null) where "PARAM_NAME" = 'Hello';
+	delete from "myappHybridGradientBoostingTree.db::PAL.Forecast";
+	pi0 = select "id", "close" as "value" from "myappHybridGradientBoostingTree.db::tables.StockPrices";
+	pi1 = select * from "myappHybridGradientBoostingTree.db::PAL.Model";
+	
+	--Example of possible parameters
+	INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsForecast" VALUES ('THREAD_RATIO', NULL, 0.5, NULL);
+    INSERT INTO "myappHybridGradientBoostingTree.db::PAL.ParamsForecast" VALUES ('VERBOSE', 0, NULL, NULL);
+
+	pi2 = select * from "myappHybridGradientBoostingTree.db::PAL.ParamsForecast";
+	call "myappHybridGradientBoostingTree.db::PALpredict" (:pi0, :pi1, :pi2, :pe3);                              
+	insert into "myappHybridGradientBoostingTree.db::PAL.Forecast" select * from :pe3;
+END

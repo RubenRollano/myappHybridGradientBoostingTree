@@ -1,0 +1,34 @@
+{ 
+  "area" : "AFLPAL", 
+  "function" : "GBDT_ANY", 
+  "parameters" : [ 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTData", 
+      "direction" : "IN" 
+    }, 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTParams", 
+      "direction" : "IN" 
+    }, 
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTModel", 
+      "direction" : "OUT" 
+    },
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTVariableImportance", 
+      "direction" : "OUT" 
+    },
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTConfusionMatrix", 
+      "direction" : "OUT" 
+    },
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTStatistics", 
+      "direction" : "OUT" 
+    },
+    { 
+      "type" : "myappHybridGradientBoostingTree.db::PAL.TTCrossValidation", 
+      "direction" : "OUT" 
+    } 
+  ]
+}

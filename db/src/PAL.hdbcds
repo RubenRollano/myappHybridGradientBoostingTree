@@ -1,0 +1,80 @@
+namespace myappHybridGradientBoostingTree.db;
+
+context PAL {
+    
+    table type TTData {
+        id    : Integer;
+        value : Double;
+    };
+    table type TTParams {
+        PARAM_NAME   : String(100);
+        INT_VALUE    : Integer;
+        DOUBLE_VALUE : Double;
+        STRING_VALUE : String(100);
+    };
+    table type TTModel {
+        ROW_INDEX : Integer;
+        KEY       : String(1000);
+        VALUE     : String(1000);
+    };
+    table type TTVariableImportance {
+        VARIABLE_NAME : String(256);
+        IMPORTANCE    : Double;
+    };
+    table type TTConfusionMatrix {
+        ACTUAL_CLASS    : String(1000);
+        PREDICTED_CLASS : String(1000);
+        COUNT           : Integer;
+    };
+    table type TTStatistics {
+        STAT_NAME  : String(1000);
+        STAT_VALUE : String(1000);
+    };
+    table type TTCrossValidation {
+        PARM_NAME    : String(256);
+        INT_VALUE    : Integer;
+        DOUBLE_VALUE : Double;
+        STRING_VALUE : String(1000);
+    };
+    table type TTDataForecast {
+        id    : Integer;
+        value : String(100);
+    };
+    table type TTForecast {
+        ID         : Integer;
+        SCORE      : String(100);
+        CONFIDENCE : Double;
+    };
+    table type TTParamsForecast {
+        PARAM_NAME   : String(100);
+        INT_VALUE    : Integer;
+        DOUBLE_VALUE : Double;
+        STRING_VALUE : String(100);
+    };
+
+    entity ParamsTrain {
+        PARAM_NAME   : String(100);
+        INT_VALUE    : Integer;
+        DOUBLE_VALUE : Double;
+        STRING_VALUE : String(100);
+    };
+
+    entity ParamsForecast {
+        PARAM_NAME       : String(100) not null;
+        INT_VALUE    : Integer;
+        DOUBLE_VALUE : Double;
+        STRING_VALUE : String(100);
+    };
+
+    entity Model {
+        ROW_INDEX : Integer;
+        KEY       : String(1000);
+        VALUE     : String(1000);
+    };
+
+    entity Forecast {
+        key ID     : Integer;
+        SCORE      : String(100);
+        CONFIDENCE : Double;
+    };
+};
